@@ -6,37 +6,23 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.pebbletemplates.pebble.PebbleEngine
+import io.ktor.server.util.*
+import com.mitchellbosecke.pebble.PebbleEngine
 import java.io.StringWriter
 
-fun Route.taskRoutes() {
-
-    val pebble =
-        PebbleEngine
-            .Builder()
-            .loader(
-                io.pebbletemplates.pebble.loader.ClasspathLoader().apply {
-                    prefix = "templates/"
-                },
-            )
-            .build()
+fun Route.taskRoutes(pebble: PebbleEngine) {
 
     /**
-     * Helper: Check if request is from HTMX
-     */
-    fun ApplicationCall.isHtmx(): Boolean =
-        request.headers["HX-Request"]?.equals("true", ignoreCase = true) == true
-
-    /**
-     * GET /tasks - List all tasks
+     * GET /tasks - Show task list
      */
     get("/tasks") {
+        val template = pebble.getTemplate("templates/tasks/index.peb")
+
         val model = mapOf(
             "title" to "Tasks",
             "tasks" to TaskRepository.all()
         )
 
-        val template = pebble.getTemplate("tasks/index.peb")
         val writer = StringWriter()
         template.evaluate(writer, model)
 
@@ -47,51 +33,14 @@ fun Route.taskRoutes() {
      * POST /tasks - Add new task
      */
     post("/tasks") {
-        val title = call.receiveParameters()["title"]
-            .orEmpty()
-            .trim()
+        val params = call.receiveParameters()
+        val title = params["title"]?.trim()
 
-        if (title.isBlank()) {
-            if (call.isHtmx()) {
-                val error = """
-                    <div id="status" hx-swap-oob="true" role="alert" aria-live="assertive">
-                        Title is required. Please enter at least one character.
-                    </div>
-                """.trimIndent()
-
-                return@post call.respondText(
-                    error,
-                    ContentType.Text.Html,
-                    HttpStatusCode.BadRequest
-                )
-            } else {
-                call.response.headers.append("Location", "/tasks")
-                return@post call.respond(HttpStatusCode.SeeOther)
-            }
+        if (!title.isNullOrBlank()) {
+            TaskRepository.add(title)
         }
 
-        val task = TaskRepository.add(title)
-
-        if (call.isHtmx()) {
-            val template = pebble.getTemplate("tasks/_item.peb")
-            val writer = StringWriter()
-            template.evaluate(writer, mapOf("task" to task))
-
-            val status = """
-                <div id="status" hx-swap-oob="true">
-                    Task "${task.title}" added successfully.
-                </div>
-            """.trimIndent()
-
-            return@post call.respondText(
-                writer.toString() + status,
-                ContentType.Text.Html,
-                HttpStatusCode.Created
-            )
-        }
-
-        call.response.headers.append("Location", "/tasks")
-        call.respond(HttpStatusCode.SeeOther)
+        call.respondRedirect("/tasks")
     }
 
     /**
@@ -99,22 +48,15 @@ fun Route.taskRoutes() {
      */
     post("/tasks/{id}/delete") {
         val id = call.parameters["id"]?.toIntOrNull()
-        val removed = id?.let { TaskRepository.delete(it) } ?: false
+            ?: return@post call.respond(HttpStatusCode.NotFound)
+
+        TaskRepository.delete(id)
 
         if (call.isHtmx()) {
-            val message = if (removed) "Task deleted." else "Could not delete task."
-
-            val status = """
-                <div id="status" hx-swap-oob="true">
-                    $message
-                </div>
-            """.trimIndent()
-
-            return@post call.respondText(status, ContentType.Text.Html)
+            call.respondText("", ContentType.Text.Html)
+        } else {
+            call.respondRedirect("/tasks")
         }
-
-        call.response.headers.append("Location", "/tasks")
-        call.respond(HttpStatusCode.SeeOther)
     }
 
     // ==========================
@@ -139,25 +81,31 @@ fun Route.taskRoutes() {
         }
 
         if (call.isHtmx()) {
-            val template = pebble.getTemplate("tasks/_edit.peb")
-            val writer = StringWriter()
+            val template = pebble.getTemplate("templates/tasks/partials/edit.peb")
 
-            template.evaluate(writer, mapOf(
+            val model = mapOf(
                 "task" to task,
                 "error" to errorMessage
-            ))
+            )
+
+            val writer = StringWriter()
+            template.evaluate(writer, model)
 
             call.respondText(writer.toString(), ContentType.Text.Html)
-        } else {
-            val template = pebble.getTemplate("tasks/index.peb")
-            val writer = StringWriter()
 
-            template.evaluate(writer, mapOf(
+        } else {
+
+            val template = pebble.getTemplate("templates/tasks/index.peb")
+
+            val model = mapOf(
                 "title" to "Tasks",
                 "tasks" to TaskRepository.all(),
                 "editingId" to id,
                 "errorMessage" to errorMessage
-            ))
+            )
+
+            val writer = StringWriter()
+            template.evaluate(writer, model)
 
             call.respondText(writer.toString(), ContentType.Text.Html)
         }
@@ -177,17 +125,19 @@ fun Route.taskRoutes() {
             .orEmpty()
             .trim()
 
-        // Validation
+        // Validate
         if (newTitle.isBlank()) {
 
             if (call.isHtmx()) {
-                val template = pebble.getTemplate("tasks/_edit.peb")
-                val writer = StringWriter()
+                val template = pebble.getTemplate("templates/tasks/partials/edit.peb")
 
-                template.evaluate(writer, mapOf(
+                val model = mapOf(
                     "task" to task,
                     "error" to "Title is required. Please enter at least one character."
-                ))
+                )
+
+                val writer = StringWriter()
+                template.evaluate(writer, model)
 
                 return@post call.respondText(
                     writer.toString(),
@@ -195,7 +145,7 @@ fun Route.taskRoutes() {
                     HttpStatusCode.BadRequest
                 )
             } else {
-                return@post call.respondRedirect("/tasks/$id/edit?error=blank")
+                return@post call.respondRedirect("/tasks/${id}/edit?error=blank")
             }
         }
 
@@ -203,9 +153,8 @@ fun Route.taskRoutes() {
         TaskRepository.update(task)
 
         if (call.isHtmx()) {
-            val template = pebble.getTemplate("tasks/_item.peb")
+            val template = pebble.getTemplate("templates/tasks/partials/view.peb")
             val writer = StringWriter()
-
             template.evaluate(writer, mapOf("task" to task))
 
             val status = """
@@ -214,12 +163,10 @@ fun Route.taskRoutes() {
                 </div>
             """.trimIndent()
 
-            call.respondText(
+            return@post call.respondText(
                 writer.toString() + status,
                 ContentType.Text.Html
             )
-
-            return@post
         }
 
         call.respondRedirect("/tasks")
@@ -235,10 +182,13 @@ fun Route.taskRoutes() {
         val task = TaskRepository.find(id)
             ?: return@get call.respond(HttpStatusCode.NotFound)
 
-        val template = pebble.getTemplate("tasks/_item.peb")
-        val writer = StringWriter()
+        val template = pebble.getTemplate("templates/tasks/partials/view.peb")
 
-        template.evaluate(writer, mapOf("task" to task))
+        val model = mapOf("task" to task)
+
+        val writer = StringWriter()
+        template.evaluate(writer, model)
+
         call.respondText(writer.toString(), ContentType.Text.Html)
     }
 }
