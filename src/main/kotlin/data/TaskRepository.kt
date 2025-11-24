@@ -92,17 +92,14 @@ object TaskRepository {
     // - fun find(id: Int): Task?
     // - fun update(task: Task)
 
-    object TaskRepository {
-    // ... existing methods ...
-
+    // Implementation of Step 6 starts here, replacing the incorrectly nested block:
     fun find(id: Int): Task? = tasks.find { it.id == id }
 
     fun update(task: Task) {
         tasks.find { it.id == task.id }?.let { it.title = task.title }
         persist()
     }
-}
-
+    // Implementation of Step 6 ends here.
 
     private fun persist() {
         file.writeText("id,title\n" + tasks.joinToString("\n") { "${it.id},${it.title}" })
