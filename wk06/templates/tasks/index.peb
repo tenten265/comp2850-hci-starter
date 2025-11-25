@@ -28,8 +28,7 @@
       {% else %}
         {% include "tasks/_item.peb" with {"task": task} %}
       {% endif %}
-    {% empty %}
-      <li>No tasks yet. Add one above!</li>
+    
     {% endfor %}
   </ul>
 </section>

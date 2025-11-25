@@ -7,8 +7,9 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
-import com.mitchellbosecke.pebble.PebbleEngine
+import io.pebbletemplates.pebble.PebbleEngine
 import java.io.StringWriter
+import isHtmxRequest
 
 fun Route.taskRoutes(pebble: PebbleEngine) {
 
@@ -16,7 +17,7 @@ fun Route.taskRoutes(pebble: PebbleEngine) {
      * GET /tasks - Show task list
      */
     get("/tasks") {
-        val template = pebble.getTemplate("templates/tasks/index.peb")
+        val template = pebble.getTemplate("tasks/index.peb")
 
         val model = mapOf(
             "title" to "Tasks",
@@ -52,7 +53,7 @@ fun Route.taskRoutes(pebble: PebbleEngine) {
 
         TaskRepository.delete(id)
 
-        if (call.isHtmx()) {
+        if (call.isHtmxRequest()) {
             call.respondText("", ContentType.Text.Html)
         } else {
             call.respondRedirect("/tasks")
@@ -80,7 +81,7 @@ fun Route.taskRoutes(pebble: PebbleEngine) {
             else -> null
         }
 
-        if (call.isHtmx()) {
+        if (call.isHtmxRequest()) {
             val template = pebble.getTemplate("templates/tasks/partials/edit.peb")
 
             val model = mapOf(
@@ -128,7 +129,7 @@ fun Route.taskRoutes(pebble: PebbleEngine) {
         // Validate
         if (newTitle.isBlank()) {
 
-            if (call.isHtmx()) {
+            if (call.isHtmxRequest()) {
                 val template = pebble.getTemplate("templates/tasks/partials/edit.peb")
 
                 val model = mapOf(
@@ -152,7 +153,7 @@ fun Route.taskRoutes(pebble: PebbleEngine) {
         task.title = newTitle
         TaskRepository.update(task)
 
-        if (call.isHtmx()) {
+        if (call.isHtmxRequest()) {
             val template = pebble.getTemplate("templates/tasks/partials/view.peb")
             val writer = StringWriter()
             template.evaluate(writer, mapOf("task" to task))

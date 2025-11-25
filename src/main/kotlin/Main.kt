@@ -64,7 +64,7 @@ fun main() {
         configureLogging()
         configureTemplating()
         configureSessions()
-        configureRouting()
+        configureRouting(attributes[PebbleEngineKey])
     }.start(wait = true)
 }
 
@@ -205,7 +205,7 @@ fun Application.configureSessions() {
  * - Health check: `/health`
  * - Task CRUD: `/tasks`, `/tasks/{id}`, etc.
  */
-fun Application.configureRouting() {
+fun Application.configureRouting(pebbleEngine: PebbleEngine) {
     routing {
         // Static files (CSS, JS, HTMX library)
         staticResources("/static", "static")
@@ -214,7 +214,6 @@ fun Application.configureRouting() {
         configureHealthCheck()
 
         // Task management routes (main feature)
-        // TODO: Week 6 Lab 1 - Implement taskRoutes()
-        taskRoutes()
+        taskRoutes(pebbleEngine)
     }
 }

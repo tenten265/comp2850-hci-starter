@@ -9,6 +9,10 @@
   <style>
     .visually-hidden{ position:absolute!important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; }
     .error{ color:#c00; }
+    button[type="submit"],
+    button{
+      color: #495057 !important; /* 7:1 contrast (AAA) */
+    }
   </style>
 </head>
 <body>
