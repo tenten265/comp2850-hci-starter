@@ -1,6 +1,6 @@
 # axe DevTools Audit Report — Week 7
 
-**Date**: [YYYY-MM-DD]
+**Date**: [2025-11-26]
 **URL**: http://localhost:8080/tasks
 **Tool**: axe DevTools 4.x
 **Scope**: Full page scan (add form + task list)
@@ -9,10 +9,10 @@
 
 ## Summary
 - **Critical**: 0
-- **Serious**: 2
-- **Moderate**: 1
-- **Minor**: 3
-- **Total**: 6 issues
+- **Serious**: 8
+- **Moderate**: 0
+- **Minor**: 0
+- **Total**: 8 issues
 
 ---
 
@@ -42,14 +42,6 @@ None detected.
 ---
 
 ## Moderate Issues
-
-### Issue 3: Skip link not keyboard-accessible (Moderate)
-**Element**: `<a href="#main" class="skip-link">`
-**Rule**: `skip-link` (best practice)
-**Description**: Skip link exists but positioned off-screen; unclear if focus visible.
-**Impact**: Keyboard users may not discover skip link.
-**Fix**: Ensure `:focus` pseudo-class makes skip link visible (already implemented in CSS, but verify).
-**Status**: ✅ **VERIFIED** — Tab reveals skip link. No action needed.
 
 ---
 

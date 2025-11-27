@@ -7,8 +7,8 @@
   <h2 id="add-heading">Add a new task</h2>
   <form action="/tasks" method="post"
         hx-post="/tasks"
-        hx-target="#task-list"
-        hx-swap="beforeend">
+        hx-target="#task-area"
+        hx-swap="afterbegin">
     <label for="title">Title</label>
     <input type="text" id="title" name="title" required
            placeholder="e.g., Buy milk" aria-describedby="title-hint">
@@ -17,17 +17,17 @@
   </form>
 </section>
 
-<section aria-labelledby="list-heading">
-  <h2 id="list-heading">Current tasks ({{ tasks | length }})</h2>
-  <ul id="task-list">
-    {% for task in tasks %}
-      {% if editingId and editingId == task.id %}
-        {% include "tasks/partials/edit.peb" with {"task": task, "error": errorMessage} %}
-      {% else %}
-        {% include "tasks/partials/view.peb" with {"task": task} %}
-      {% endif %}
-   
-    {% endfor %}
-  </ul>
-</section>
+<div id="task-area">
+  <section aria-labelledby="list-heading">
+    <h2 id="list-heading">Current tasks ({{ tasks | length }})</h2>
+
+    {# Build a simple page object for the list partial #}
+    {% set page = {"items": tasks, "totalItems": tasks | length} %}
+
+    {% include "tasks/_list.peb" with {"page": page, "query": null} %}
+
+    {% include "tasks/_pager.peb" with {"page": page} %}
+  </section>
+</div>
+
 {% endblock %}

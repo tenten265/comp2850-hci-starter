@@ -1,6 +1,6 @@
 # WCAG 2.2 AA Checklist — Week 7
 
-**Date**: [2025-11-21]
+**Date**: [2025-11-26]
 **Scope**: Task manager (add, edit, delete flows)
 **Tester**: [Oluwateniola Kuye]
 

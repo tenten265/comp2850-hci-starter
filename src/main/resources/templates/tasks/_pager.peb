@@ -1,0 +1,4 @@
+<nav aria-label="Pagination" class="pager">
+  <!-- Pager placeholder: will be populated in later lab steps -->
+  <p class="visually-hidden">Pagination controls will appear here when implemented.</p>
+</nav>

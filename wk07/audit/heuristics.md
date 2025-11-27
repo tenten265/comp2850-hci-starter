@@ -1,7 +1,7 @@
 # Heuristic Evaluation — Week 7
 
 **Evaluator**: [Oluwateniola Kuye]
-**Date**: [2025-11-21]
+**Date**: [2025-11-26]
 **Method**: Nielsen's 10 Usability Heuristics + Shneiderman's Golden Rules
 
 ---

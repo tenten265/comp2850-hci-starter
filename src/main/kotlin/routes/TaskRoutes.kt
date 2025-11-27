@@ -82,7 +82,7 @@ fun Route.taskRoutes(pebble: PebbleEngine) {
         }
 
         if (call.isHtmxRequest()) {
-            val template = pebble.getTemplate("templates/tasks/partials/edit.peb")
+            val template = pebble.getTemplate("tasks/partials/edit.peb")
 
             val model = mapOf(
                 "task" to task,
@@ -96,7 +96,7 @@ fun Route.taskRoutes(pebble: PebbleEngine) {
 
         } else {
 
-            val template = pebble.getTemplate("templates/tasks/index.peb")
+            val template = pebble.getTemplate("tasks/index.peb")
 
             val model = mapOf(
                 "title" to "Tasks",
@@ -130,7 +130,7 @@ fun Route.taskRoutes(pebble: PebbleEngine) {
         if (newTitle.isBlank()) {
 
             if (call.isHtmxRequest()) {
-                val template = pebble.getTemplate("templates/tasks/partials/edit.peb")
+                val template = pebble.getTemplate("tasks/partials/edit.peb")
 
                 val model = mapOf(
                     "task" to task,
@@ -154,7 +154,7 @@ fun Route.taskRoutes(pebble: PebbleEngine) {
         TaskRepository.update(task)
 
         if (call.isHtmxRequest()) {
-            val template = pebble.getTemplate("templates/tasks/partials/view.peb")
+            val template = pebble.getTemplate("tasks/partials/view.peb")
             val writer = StringWriter()
             template.evaluate(writer, mapOf("task" to task))
 
@@ -183,7 +183,7 @@ fun Route.taskRoutes(pebble: PebbleEngine) {
         val task = TaskRepository.find(id)
             ?: return@get call.respond(HttpStatusCode.NotFound)
 
-        val template = pebble.getTemplate("templates/tasks/partials/view.peb")
+        val template = pebble.getTemplate("tasks/partials/view.peb")
 
         val model = mapOf("task" to task)
 

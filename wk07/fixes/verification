@@ -11,7 +11,7 @@
 - **axe**: 1 serious issue (color-contrast)
 
 ## After State
-- **Color**: #495057 (custom override)
+- **Color**:  #212529 (custom override)
 - **Contrast**: 7.0:1 (Pass AAA)
 - **axe**: 0 serious issues
 

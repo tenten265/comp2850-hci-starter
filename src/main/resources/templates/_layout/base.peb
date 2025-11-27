@@ -11,6 +11,12 @@
 
     {# HTMX for progressive enhancement #}
     <script src="/static/js/htmx-1.9.12.min.js" defer></script>
+    <style>
+        button[type="submit"],
+        button {
+            color: #212529 !important; /* darker / stronger contrast */
+        }
+    </style>
 </head>
 <body>
     {# Skip link for keyboard navigation (WCAG 2.4.1) #}
