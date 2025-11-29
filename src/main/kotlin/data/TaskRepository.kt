@@ -15,6 +15,16 @@ data class Task(
 )
 
 /**
+ * Pagination wrapper for search results
+ */
+data class Page<T>(
+    val items: List<T>,
+    val currentPage: Int,
+    val totalPages: Int,
+    val totalItems: Int,
+)
+
+/**
  * In-memory repository with CSV persistence.
  */
 object TaskRepository {
@@ -58,6 +68,28 @@ object TaskRepository {
     fun update(task: Task) {
         tasks.find { it.id == task.id }?.let { it.title = task.title }
         persist()
+    }
+
+    fun search(query: String, page: Int = 1, size: Int = 10): Page<Task> {
+        val filtered = if (query.isBlank()) {
+            tasks
+        } else {
+            tasks.filter { it.title.contains(query, ignoreCase = true) }
+        }
+
+        val totalItems = filtered.size
+        val totalPages = (totalItems + size - 1) / size
+        val clampedPage = page.coerceIn(1, maxOf(1, totalPages))
+        val startIdx = (clampedPage - 1) * size
+        val endIdx = minOf(startIdx + size, totalItems)
+        val items = filtered.subList(startIdx, endIdx)
+
+        return Page(
+            items = items,
+            currentPage = clampedPage,
+            totalPages = totalPages,
+            totalItems = totalItems
+        )
     }
 
     private fun persist() {

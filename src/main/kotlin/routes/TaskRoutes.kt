@@ -14,20 +14,51 @@ import isHtmxRequest
 fun Route.taskRoutes(pebble: PebbleEngine) {
 
     /**
-     * GET /tasks - Show task list
+     * GET /tasks - Show task list with optional filtering
      */
     get("/tasks") {
+        val query = call.request.queryParameters["q"].orEmpty()
+        val page = call.request.queryParameters["page"]?.toIntOrNull() ?: 1
+        val data = TaskRepository.search(query = query, page = page, size = 10)
+
         val template = pebble.getTemplate("tasks/index.peb")
 
         val model = mapOf(
             "title" to "Tasks",
-            "tasks" to TaskRepository.all()
+            "page" to data,
+            "query" to query,
+            "sessionId" to "dev-session",
+            "isHtmx" to call.isHtmxRequest()
         )
 
         val writer = StringWriter()
         template.evaluate(writer, model)
 
         call.respondText(writer.toString(), ContentType.Text.Html)
+    }
+
+    /**
+     * GET /tasks/fragment - HTMX endpoint for filtered task list
+     */
+    get("/tasks/fragment") {
+        val query = call.request.queryParameters["q"].orEmpty()
+        val page = call.request.queryParameters["page"]?.toIntOrNull() ?: 1
+        val data = TaskRepository.search(query = query, page = page, size = 10)
+
+        val listTemplate = pebble.getTemplate("tasks/_list.peb")
+        val listWriter = StringWriter()
+        listTemplate.evaluate(listWriter, mapOf("page" to data, "query" to query))
+
+        val pagerTemplate = pebble.getTemplate("tasks/_pager.peb")
+        val pagerWriter = StringWriter()
+        pagerTemplate.evaluate(pagerWriter, mapOf("page" to data, "query" to query))
+
+        val status = """<div id="status" hx-swap-oob="true">Found ${data.totalItems} tasks.</div>"""
+
+        call.respondText(
+            listWriter.toString() + pagerWriter.toString() + status,
+            ContentType.Text.Html
+        )
     }
 
     /**
@@ -193,3 +224,4 @@ fun Route.taskRoutes(pebble: PebbleEngine) {
         call.respondText(writer.toString(), ContentType.Text.Html)
     }
 }
+
