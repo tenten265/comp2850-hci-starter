@@ -14,9 +14,11 @@ import isHtmxRequest
 fun Route.taskRoutes(pebble: PebbleEngine) {
 
     /**
-     * GET /tasks - Show task list with optional filtering
+     * GET /tasks - Show task list with optional filtering and error display
      */
     get("/tasks") {
+        val error = call.request.queryParameters["error"]
+        val msg = call.request.queryParameters["msg"]
         val query = call.request.queryParameters["q"].orEmpty()
         val page = call.request.queryParameters["page"]?.toIntOrNull() ?: 1
         val data = TaskRepository.search(query = query, page = page, size = 10)
@@ -27,6 +29,8 @@ fun Route.taskRoutes(pebble: PebbleEngine) {
             "title" to "Tasks",
             "page" to data,
             "query" to query,
+            "error" to error,
+            "msg" to msg,
             "sessionId" to "dev-session",
             "isHtmx" to call.isHtmxRequest()
         )
@@ -65,30 +69,65 @@ fun Route.taskRoutes(pebble: PebbleEngine) {
      * POST /tasks - Add new task
      */
     post("/tasks") {
-        val params = call.receiveParameters()
-        val title = params["title"]?.trim()
+        val title = call.receiveParameters()["title"].orEmpty().trim()
 
-        if (!title.isNullOrBlank()) {
-            TaskRepository.add(title)
+        // Validation
+        if (title.isBlank()) {
+            if (call.isHtmxRequest()) {
+                val status = """<div id="status" hx-swap-oob="true">Title is required.</div>"""
+                return@post call.respondText(status, ContentType.Text.Html, HttpStatusCode.BadRequest)
+            } else {
+                // No-JS: redirect with error query param
+                return@post call.respondRedirect("/tasks?error=title")
+            }
         }
 
+        if (title.length > 200) {
+            if (call.isHtmxRequest()) {
+                val status = """<div id="status" hx-swap-oob="true">Title too long (max 200 chars).</div>"""
+                return@post call.respondText(status, ContentType.Text.Html, HttpStatusCode.BadRequest)
+            } else {
+                return@post call.respondRedirect("/tasks?error=title&msg=too_long")
+            }
+        }
+
+        // Success path
+        val task = TaskRepository.add(title)
+        if (call.isHtmxRequest()) {
+            val itemTemplate = pebble.getTemplate("tasks/_item.peb")
+            val itemWriter = StringWriter()
+            itemTemplate.evaluate(itemWriter, mapOf("task" to task))
+            val status = """<div id="status" hx-swap-oob="true">Added "${task.title}".</div>"""
+            return@post call.respondText(itemWriter.toString() + status, ContentType.Text.Html)
+        }
         call.respondRedirect("/tasks")
     }
 
     /**
-     * POST /tasks/{id}/delete - Delete task
+     * DELETE /tasks/{id} - Delete task (HTMX path with confirmation)
      */
-    post("/tasks/{id}/delete") {
+    delete("/tasks/{id}") {
         val id = call.parameters["id"]?.toIntOrNull()
-            ?: return@post call.respond(HttpStatusCode.NotFound)
+            ?: return@delete call.respond(HttpStatusCode.BadRequest)
+
+        val task = TaskRepository.find(id)
+            ?: return@delete call.respond(HttpStatusCode.NotFound)
 
         TaskRepository.delete(id)
 
-        if (call.isHtmxRequest()) {
-            call.respondText("", ContentType.Text.Html)
-        } else {
-            call.respondRedirect("/tasks")
-        }
+        val status = """<div id="status" hx-swap-oob="true">Deleted "${task.title}".</div>"""
+        call.respondText(status, ContentType.Text.Html)
+    }
+
+    /**
+     * POST /tasks/{id}/delete - Delete task (no-JS fallback)
+     */
+    post("/tasks/{id}/delete") {
+        val id = call.parameters["id"]?.toIntOrNull()
+            ?: return@post call.respond(HttpStatusCode.BadRequest)
+
+        TaskRepository.delete(id)
+        call.respondRedirect("/tasks")
     }
 
     // ==========================
