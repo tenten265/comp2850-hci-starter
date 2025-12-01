@@ -14,3 +14,7 @@ id,title,story_ref,story_type,need,type,severity,inclusion_risk,evidence,notes,c
 11,No confirmation for delete action,wk07/audit/heuristics.md#H3,Heuristic violation,Error prevention,Usability,Medium,"Motor,Cognitive","Nielsen H3 + H5","Accidental clicks cause permanent deletion; add confirmation dialog",false
 12,No undo feature for delete,wk07/audit/heuristics.md#H3,Heuristic violation,User control,Usability,Low,"Motor,Cognitive","Nielsen H3","Defer to Semester 2; requires state management",false
 13,No help documentation or tooltips,wk07/audit/heuristics.md#H10,Heuristic violation,Learning support,Usability,Low,Cognitive,"Nielsen H10","Defer to Semester 2; low priority",false
+
+id,week,priority,category,description,wcag,status
+wk8-01,8,high,functionality,"Delete has no confirmation in no-JS mode",,open
+wk8-02,8,medium,ux,"Filter form submits on Enter but no visual feedback",,ope
