@@ -4,9 +4,22 @@
 
 <form action="/tasks" method="post"
       hx-post="/tasks" hx-target="#task-area" hx-swap="innerHTML" hx-on::after-request="this.reset()">
-  <label for="title">Title</label>
-  <input id="title" name="title" required aria-describedby="title-hint">
-  <small id="title-hint">Short and specific.</small>
+
+  <label for="title">Task title</label>
+  <input id="title" name="title" type="text"
+         {% if error == "title" %}aria-invalid="true" aria-describedby="title-error"{% endif %}
+         required>
+
+  {% if error == "title" %}
+  <p id="title-error" class="error-message">
+    {% if msg == "too_long" %}
+      Title is too long (max 200 characters)
+    {% else %}
+      Title is required
+    {% endif %}
+  </p>
+  {% endif %}
+
   <button type="submit">Add</button>
 </form>
 
