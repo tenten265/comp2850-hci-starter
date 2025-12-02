@@ -1,3 +1,5 @@
+// In src/main/kotlin/Main.kt
+
 import io.ktor.server.application.*
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
@@ -16,12 +18,14 @@ import io.pebbletemplates.pebble.PebbleEngine
 import routes.configureTaskRoutes
 import routes.configureHealthCheck
 // import routes.configureEditRoutes // Week 7
-import utils.ReqIdKey
+import utils.RequestIdKey // FIXED: Must match definition in utils/Timing.kt (was ReqIdKey)
 import utils.SessionData
-import utils.generateRequestId
+import utils.newReqId // FIXED: Must match definition in utils/Timing.kt (was generateRequestId)
 import java.io.StringWriter
+import io.ktor.server.application.ApplicationStarted // Needed for configureTemplating()
 
-/**
+// ... rest of Main.kt (no other changes needed in Main.kt)
+// ... (The rest of your Main.kt code remains the same as provided in your prompt)
  * Main entry point for COMP2850 HCI server-first application.
  *
  * **Architecture**:
