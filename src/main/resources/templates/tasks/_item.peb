@@ -1,27 +1,18 @@
-<li id="task-{{ task.id }}" class="task-item">
-
+<li id="task-{{ task.id }}" class="task-view">
   <span class="task-title">{{ task.title }}</span>
 
-  <!-- Edit button (HTMX + fallback) -->
-  <button
-      hx-get="/tasks/{{ task.id }}/edit"
-      hx-target="#task-{{ task.id }}"
-      hx-swap="outerHTML"
-      aria-label="Edit task: {{ task.title }}">
-    Edit
-  </button>
+  <form action="/tasks/{{ task.id }}/edit" method="get" style="display: inline;"
+        hx-get="/tasks/{{ task.id }}/edit"
+        hx-target="#task-{{ task.id }}"
+        hx-swap="outerHTML">
+    <button type="submit" aria-label="Edit task: {{ task.title }}">Edit</button>
+  </form>
 
-  <!-- Delete button (HTMX + fallback form) -->
-  <form action="/tasks/{{ task.id }}/delete" method="post" style="display:inline;">
-    <button
-        type="submit"
+  <form action="/tasks/{{ task.id }}/delete" method="post" style="display: inline;"
         hx-delete="/tasks/{{ task.id }}"
         hx-target="#task-{{ task.id }}"
         hx-swap="outerHTML"
-        hx-confirm="Delete the task '{{ task.title }}'?"
-        aria-label="Delete task: {{ task.title }}">
-      Delete
-    </button>
+        hx-confirm="Delete the task '{{ task.title }}'?">
+    <button type="submit" aria-label="Delete task: {{ task.title }}">Delete</button>
   </form>
-
 </li>
