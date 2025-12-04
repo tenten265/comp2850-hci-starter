@@ -1,64 +1,50 @@
-# Pilot Notes
-
-Use this template for each session. Include session_id on every entry.
-
-## Session metadata
-- **Date**: YYYY-MM-DD
-- **Participant code**: P1
-- **Session ID**: X7kL9p
-- **JS mode**: on / off
-- **Accessibility variant**: visual / keyboard-only / screen reader
-
+# Pilot Notes — Week 9
+ 
+**Session**: P1  
+**Session ID**: 7a9f2c  
+**Date**: 2025-10-15  
+**Variant**: Keyboard-only, JS-on
+ 
 ---
-
-## Task T3 Add Task
-- **Start**: HH:MM:SS
-- **End**: HH:MM:SS
-- **Completion**: 1 / 0.5 / 0
-- **Confidence**: 1–5
-- **Notes**: Short observation (what they did, errors, SR behaviour)
-- **Facilitator**: none / prompted / assisted (note reason)
-
+ 
+## Observations
+ 
+| Time  | Task | Observation | Tag |
+|-------|------|-------------|-----|
+| 14:23 | T3   | Participant hesitated before submitting—unsure if 'Enter' or button | ux-feedback |
+| 14:25 | T3   | Success message not noticed initially | a11y-status |
+| 14:26 | T1   | Typed 'report' slowly, watching for instant results | ux-expectation |
+| 14:27 | T1   | Screen reader announced "Showing 3 tasks" ✓ | a11y-pass |
+| 14:29 | T2   | Clicked Edit, validation error triggered (blank submission) | error-handling |
+| 14:30 | T2   | Recovered from error, completed successfully | resilience |
+ 
 ---
-
-## Task T1 Filter Tasks
-- **Start**: HH:MM:SS
-- **End**: HH:MM:SS
-- **Completion**: 1 / 0.5 / 0
-- **Confidence**: 1–5
-- **Notes**: e.g., "Used Ctrl+F first; miscounted; SR announcement missing"
-- **Facilitator**: none / prompted / assisted
-
+ 
+## Debrief Notes
+ 
+- "I liked that the filter worked without clicking a button"
+- "I wasn't sure the edit saved—maybe make the message more obvious?"
+- Screen reader announced status messages correctly throughout
+ 
 ---
-
-## Task T2 Edit Task
-- **Start**: HH:MM:SS
-- **End**: HH:MM:SS
-- **Completion**: 1 / 0.5 / 0
-- **Confidence**: 1–5
-- **Notes**: e.g., "Focus lost after save; validation error on blank title"
-- **Facilitator**: none / prompted / assisted
-
+ 
+## Subjective Ratings (Post-Task)
+ 
+**Confidence ratings (1–5)**
+ 
+| Task | Rating | Notes |
+|------|--------|-------|
+| T3   | 5      |       |
+| T1   | 4      |       |
+| T2   | 3      | "Not sure it saved" |
+| T4   | 5      |       |
+ 
 ---
-
-## Task T4 Delete Task
-- **Start**: HH:MM:SS
-- **End**: HH:MM:SS
-- **Completion**: 1 / 0.5 / 0
-- **Confidence**: 1–5
-- **Notes**: e.g., "Confirmation dialog not keyboard-focusable"
-- **Facilitator**: none / prompted / assisted
-
----
-
-## Debrief
-- **Quotes**: Short verbatim quotes
-- **Accessibility issues**: List with WCAG references if known
-- **Follow-up / backlog links**: e.g., wk8-01 (delete confirmation missing)
-- **Other notes**: Anything else relevant
-
----
-
-## Data integrity
-- **Logs present**: yes / no (if no, note missing rows)
-- **Anomalies**: e.g., times implausible, participant interrupted
+ 
+## Tags Legend (optional)
+- **ux-feedback**: Observations about usability or cognitive load  
+- **a11y-status**: Accessibility feedback (status messages, ARIA, announcements)  
+- **a11y-pass**: Accessibility task successfully completed  
+- **error-handling**: Triggered or recovered from validation errors  
+- **resilience**: Participant recovered from mistake or unexpected behavior  
+- **ux-expectation**: Notes on participant expectations or surprise

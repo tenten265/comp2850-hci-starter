@@ -17,4 +17,4 @@ id,title,story_ref,story_type,need,type,severity,inclusion_risk,evidence,notes,c
 
 id,week,priority,category,description,wcag,status
 wk8-01,8,high,functionality,"Delete has no confirmation in no-JS mode",,open
-wk8-02,8,medium,ux,"Filter form submits on Enter but no visual feedback",,ope
+wk8-02,8,medium,ux,"Filter form submits on Enter but no visual feedback",,open

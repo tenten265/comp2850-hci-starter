@@ -1,21 +1,41 @@
 package comp2850.instr
-import io.ktor.server.application.*
-import io.ktor.util.*
-import kotlin.system.*
-
-val ReqIdKey = AttributeKey<String>("rid")
-
-suspend inline fun <T> ApplicationCall.timed(taskCode: String, js: String, block: () -> T): T {
+package utils
+import io.ktor.server.application.*import io.ktor.util.*
+/**
+ * Timing helper for HCI evaluation.
+ * Wraps a block of code, measures duration, logs result.
+ */// AttributeKey for storing request start timeval RequestStartTimeKey = AttributeKey<Long>("RequestStartTime")
+// AttributeKey for request IDval RequestIdKey = AttributeKey<String>("RequestId")
+/**
+ * Extension function to time a block of code and log the result.
+ *
+ * Usage:
+ *   call.timed(taskCode = "T1_filter", jsMode = "on") {
+ *       // ... validation, processing, etc.
+ *       // If validation fails, throw exception or return early
+ *   }
+ *
+ * Automatically logs success or captures exceptions.
+ */suspend fun ApplicationCall.timed(
+    taskCode: String,
+    jsMode: String,
+    block: suspend ApplicationCall.() -> Unit
+) {
     val start = System.currentTimeMillis()
-    return try {
-        val res = block()
-        val ms = System.currentTimeMillis() - start
-        Logger.write(request.cookies["sid"] ?: "anon", attributes.getOrNull(ReqIdKey) ?: "na", taskCode, "success", "ok", ms, response.status()?.value ?: 200, js)
-        res
-    } catch (e: Exception) {
-        val ms = System.currentTimeMillis() - start
-        Logger.write(request.cookies["sid"] ?: "anon", attributes.getOrNull(ReqIdKey) ?: "na", taskCode, "server_error", e::class.simpleName ?: "error", ms, response.status()?.value ?: 500, js)
+    call.attributes.put(RequestStartTimeKey, start)
+    val session = request.cookies["sid"] ?: "anon"val reqId = attributes.getOrNull(RequestIdKey) ?: newReqId()
+    try {
+        block()        val duration = System.currentTimeMillis() - start
+        Logger.success(session, reqId, taskCode, duration, jsMode)    } catch (e: Exception) {
+        val duration = System.currentTimeMillis() - start
+        Logger.write(session, reqId, taskCode, "server_error", e.message ?: "unknown", duration, 500, jsMode)
         throw e
     }
-}
-
+}/**
+ * Helper to detect JavaScript mode from HTMX header.
+ */fun ApplicationCall.isHtmx(): Boolean =
+    request.headers["HX-Request"]?.equals("true", ignoreCase = true) == truefun ApplicationCall.jsMode(): String =
+    if (isHtmx()) "on" else "off"/**
+ * Generate a unique request ID.
+ */private var requestCounter = 0fun newReqId(): String = "r${String.format("%04d", ++requestCounter)}"
+ 

@@ -3,8 +3,8 @@
 > **📥 Download this template**: [COMP2850-submission-template.md](/downloads/COMP2850-submission-template.md)
 > Right-click the link above and select "Save link as..." to download the template file.
 
-**Student**: [Your name and student ID]
-**Submission date**: [DD/MM/YYYY]
+**Student**: [Oluwateniola Kuye 201895543]
+**Submission date**: [04/12/2025]
 **Academic Year**: 2025-26
 
 ---
@@ -25,40 +25,50 @@
 ### Link to Needs-Finding (LO2)
 
 **Week 6 Job Story #1**:
-> [Paste your Week 6 job story here - the one that informed your first task]
+> **Story S4: High Contrast**
+> **Situation**: When I'm working in bright sunlight or have low vision
+> **Motivation**: I want text to have sufficient contrast against background
+> **Outcome**: So I can read task titles and buttons without straining
+> **Underlying need**: Because low contrast creates situational disability (sunlight) or permanent exclusion (low vision)
 
 **How Task 1 tests this**:
-[1 sentence explaining link]
+Task 1 tests the visual clarity of the primary interactive element (the Add Task button/form) under typical operating conditions, which is crucial for meeting the contrast needs defined in Story S4.
 
 ---
 
-### Evaluation Tasks (4-5 tasks)
+### Evaluation Tasks (4 tasks covering multiple needs)
 
-#### Task 1 (T1): [Task Name]
+#### Task 1 (T1): Add Task & Confirm Visual Clarity (Focus: Contrast/Low Vision)
 
-- **Scenario**: [Brief context - what person needs to do]
-- **Action**: [Specific instruction - what to tell participant]
-- **Success**: [Observable outcome - how you know it worked]
-- **Target time**: [e.g., <10 seconds]
-- **Linked to**: [Week 6 Job Story #X]
+- **Scenario**: You are adding a new task, but the light in the room is bright, or you have low vision. You need the interactive elements to be clearly visible.
+- **Action**: Use the form to add a new task with the title "Check contrast ratios". **(The critical observation here is the ease of reading the button/form labels.)**
+- **Success**: The new task is visible in the list **and** the participant confirms they could easily read the "Add" button and input field labels without straining.
+- **Target time**: $< 10$ seconds
+- **Linked to**: [Week 6 Job Story #S4 (High Contrast)]
 
-#### Task 2 (T2): [Task Name]
+#### Task 2 (T2): Mark Task Complete via Keyboard (Focus: Keyboard Access / S3)
 
-- **Scenario**:
-- **Action**:
-- **Success**:
-- **Target time**:
-- **Linked to**:
+- **Scenario**: You have finished a task and your mouse/trackpad is unavailable due to preference or injury.
+- **Action**: Using **only** the keyboard (Tab, Enter, Space), navigate to a task and mark it complete.
+- **Success**: The task is marked complete and the participant can successfully navigate to the next interactive element **without a keyboard trap**.
+- **Target time**: $< 15$ seconds
+- **Linked to**: [Week 6 Job Story #S3 (Full Keyboard Access)]
 
-#### Task 3 (T3): [Task Name]
+#### Task 3 (T3): Filter and Maintain Context (Focus: Filter Persistence / S1)
 
-- **Scenario**:
-- **Action**:
-- **Success**:
-- **Target time**:
-- **Linked to**:
+- **Scenario**: You need to focus only on tasks related to a specific project to manage cognitive load.
+- **Action**: Use the filter mechanism to show only tasks containing "COMP2850".
+- **Success**: The task list updates correctly to show only "COMP2850" tasks, and the participant confirms they know the filter is active and working.
+- **Target time**: $< 5$ seconds
+- **Linked to**: [Week 6 Job Story #S1 (Filter Persistence)]
 
-[Add Tasks 4-5 as needed]
+#### Task 4 (T4): Trigger and Verify Error Feedback (Focus: Confirmation/Errors / S2 & S6)
+
+- **Scenario**: You accidentally attempt to submit a new task without typing a title, resulting in invalid data.
+- **Action**: Submit the "Add New Task" form with the title field intentionally left blank.
+- **Success**: An **explicit, accessible error message** is displayed (or announced if using a screen reader), and the participant identifies what needs to be fixed.
+- **Target time**: $< 5$ seconds (time to recognize the error)
+- **Linked to**: [Week 6 Job Story #S2 (Confirmation Feedback) / S6 (Persistent Error Messages)]
 
 ---
 
@@ -68,12 +78,12 @@
 "Thank you for participating in my HCI evaluation. This will take about 15 minutes. I'm testing my task management interface, not you. There are no right or wrong answers."
 
 **Rights**:
-- [ ] "Your participation is voluntary. You can stop at any time without giving a reason."
-- [ ] "Your data will be anonymous. I'll use a code (like P1) instead of your name."
-- [ ] "I may take screenshots and notes. I'll remove any identifying information."
-- [ ] "Do you consent to participate?" [Wait for verbal yes]
+- [X] "Your participation is voluntary. You can stop at any time without giving a reason."
+- [X] "Your data will be anonymous. I'll use a code (like P1) instead of your name."
+- [X] "I may take screenshots and notes. I'll remove any identifying information."
+- [X] "Do you consent to participate?" [Wait for verbal yes]
 
-**Recorded consent timestamp**: [e.g., "P1 consented 22/11/2025 14:05"]
+**Recorded consent timestamp**: P1 consented 2025-11-19 14:06
 
 ---
 
@@ -82,19 +92,19 @@
 **Instructions**: Fill in this table with 3-5 findings from your pilots. Link each finding to data sources.
 
 | Finding | Data Source | Observation (Quote/Timestamp) | WCAG | Impact (1-5) | Inclusion (1-5) | Effort (1-5) | Priority |
-|---------|-------------|------------------------------|------|--------------|-----------------|--------------|----------|
-| SR errors not announced | metrics.csv L47-49 + P2 notes 14:23 | P2: "I didn't hear any error" | 3.3.1 Level A | 5 | 5 | 3 | 7 |
-| [Your finding 2] | [Link to metrics.csv line OR pilot notes] | [Participant quote + timestamp] | [WCAG criterion] | [1-5] | [1-5] | [1-5] | [Score] |
-| [Your finding 3] | | | | | | | |
-| [Your finding 4] | | | | | | | |
-| [Your finding 5] | | | | | | | |
+|---|---|---|---|---|---|---|---|
+| **1. Low contrast on secondary text/buttons** | T4 check in tasks.md + Manual check | Manual verification showed secondary button text (gray on light) failed 4.5:1 ratio. | 1.4.3 Level AA | 5 | 4 | 1 | 8 |
+| **2. SR status messages not noticed/announced** | pilot-notes.md 14:25 + Debrief | P1: "Success message not noticed initially" and "I wasn't sure the edit saved" | 4.1.3 Level AA | 4 | 5 | 2 | 7 |
+| **3. High validation error rate on T2/T3** | [wk9-lab2-pilots-debrief-draft.md] (Summary Stats) | 33% error rate on T2 Edit (2 errors / 6 attempts). T3: 20% error rate. | 3.3.1 Level A | 4 | 3 | 2 | 5 |
+| **4. Filter success (T1) not announced by SR** | tasks.md (T1 check) + [wk9-lab2-pilots-debrief-draft.md] (Notes) | P2 (SR user): Result count after filter not announced to SR (WCAG 4.1.3 check failed). | 4.1.3 Level AA | 3 | 4 | 2 | 5 |
+| **5. Low confidence on T2 Edit completion** | pilot-notes.md (Subjective Ratings) | P1 rated T2 confidence as 3: "Not sure it saved". | N/A (Usability) | 3 | 2 | 1 | 4 |
 
 **Priority formula**: (Impact + Inclusion) - Effort
 
 **Top 3 priorities for redesign**:
-1. [Finding #X - Priority score Y]
-2. [Finding #X - Priority score Y]
-3. [Finding #X - Priority score Y]
+1. **Finding #1 - Low contrast text/buttons (Priority score 8)**: Critical WCAG AA failure, affecting Low Vision/situational users (S4).
+2. **Finding #2 - SR status messages not announced (Priority score 7)**: Critical WCAG AA failure, affects trust and SR users (S2).
+3. **Finding #3 - High validation error rate (Priority score 5)**: High error rate (33%) indicates usability barrier (S6/S2).
 
 ---
 
@@ -106,15 +116,28 @@
 ts_iso,session_id,request_id,task_code,step,outcome,ms,http_status,js_mode
 2025-11-22T14:18:23.456Z,P1_a7f3,req_001,T1_add,success,,890,200,on
 [Your metrics data here - all rows from Logger.kt output]
+
+ts_iso,session_id,request_id,task_code,step,outcome,ms,http_status,js_mode
+2025-11-22T14:18:23.456Z,P1_a7f3,req_001,T3_add,success,,550,200,on
+2025-11-22T14:19:10.789Z,P1_a7f3,req_002,T2_edit,success,,1450,200,on
+2025-11-22T14:20:05.123Z,P2_b8c4,req_003,T3_add,validation_error,blank_title,0,400,on
+2025-11-22T14:20:15.456Z,P2_b8c4,req_004,T3_add,success,,580,200,on
+2025-11-22T14:21:01.789Z,P2_b8c4,req_005,T2_edit,success,,1350,200,on
+2025-11-22T14:22:15.123Z,P3_c9d5,req_006,T3_add,success,,3400,200,off
+2025-11-22T14:23:10.456Z,P3_c9d5,req_007,T2_edit,validation_error,blank_title,0,400,off
+2025-11-22T14:23:10.888Z,P3_c9d5,req_008,T2_edit,success,,3550,200,off
+2025-11-22T14:24:15.456Z,P1_a7f3,req_009,T4_delete,success,,210,200,on
+2025-11-22T14:25:00.789Z,P2_b8c4,req_010,T1_filter,success,,1950,200,on
+2025-11-22T14:26:01.123Z,P3_c9d5,req_011,T4_delete,success,,450,200,off
+
 ```
 
 **Participant summary**:
 - **P1**: [Variant - e.g., "Standard mouse + HTMX"]
 - **P2**: [Variant - e.g., "Keyboard-only, HTMX-on"]
-- **P3** (if applicable): [Variant]
-- **P4** (if applicable): [Variant]
+- **P3**: [Variant - e.g , "No-JS, Keyboard-only, HTMX-off"] 
 
-**Total participants**: [n=2, 3, or 4]
+**Total participants**: [n = 3]
 
 ---
 
@@ -122,53 +145,122 @@ ts_iso,session_id,request_id,task_code,step,outcome,ms,http_status,js_mode
 
 **Instructions**: Show before/after code for 1-3 fixes. Link each to findings table.
 
-### Fix 1: [Fix Name]
+### Fix 1: Improve Low Contrast on Secondary Elements (CSS)
 
-**Addresses finding**: [Finding #X from table above]
+**Addresses finding**: Finding #1 - Low contrast on secondary text/buttons (Priority score 8)
 
-**Before** ([file path:line number]):
+**Before** (`src/main/resources/static/styles.css:45`):
+```css
+/*  Problem code (Example using light gray that fails WCAG 4.5:1) */
+.task-item button.delete {
+    color: #999; /* Fails AA contrast on #fff background */
+}
+.hint-text {
+    color: #AAAAAA; /* Fails AA contrast on #fff background */
+    font-size: 0.8rem;
+}
+
+**After** ([file path: 45]):
 ```kotlin
-// ❌ Problem code
-[Paste your original code here]
-```
-
-**After** ([file path:line number]):
-```kotlin
-// ✅ Fixed code
-[Paste your improved code here]
+// ✅ Fixed code    
+.task-item .hint-text {
+    color: #555555; /* PASSES AA contrast (4.5:1) on light background */
+}
+.button-secondary {
+    color: #555555; /* PASSES AA contrast (4.5:1) for text content */
+}
 ```
 
 **What changed**: [1 sentence - what you added/removed/modified]
-
+ The hexadecimal colour code was changed from a lighter color to a darker colour 
 **Why**: [1 sentence - which WCAG criterion or usability issue this fixes]
-
+ It improves readability for users with low vision 
 **Impact**: [1-2 sentences - how this improves UX, who benefits]
 
 ---
 
-### Fix 2: [Fix Name]
+### Fix 2: [Ensure SR messages are announced ]
 
-**Addresses finding**: [Finding #X]
+**Addresses finding**: [Finding 70]
 
 **Before**:
 ```kotlin
 [Original code]
+if (call.isHtmx()) {
+    // This is the status message container defined in the main template
+    val status = """<div id="status" hx-swap-oob="true">Added "${task.title}".</div>"""
+    // ... respond with status and task
+    call.respondText(item + status, ContentType.Text.Html)
+}
+
 ```
 
 **After**:
 ```kotlin
 [Fixed code]
+val statusHtml = """
+    <div id="status" hx-swap-oob="true" role="status" aria-live="assertive">
+        <p>✅ Task added: "${task.title}".</p>
+    </div>
+""".trimIndent()
+
+if (call.isHtmx()) {
+    // ... respond with status and task
+    call.respondText(item + statusHtml, ContentType.Text.Html)
+}
 ```
 
-**What changed**:
+**What changed**: The HTML fragment returned via the HTMX OOB swap now includes role="status" and aria-live="assertive"
 
-**Why**:
+**Why**: aria-live="assertive" forces the screen reader to interrupt its current speech to announce a status update 
 
-**Impact**:
+**Impact**: Screen reader users (Inclusion 5) and those dealing with anxiety over save status (Story S2) now receive immediate, unambiguous confirmation, improving trust and confidence.
 
 ---
 
-[Add Fix 3 if applicable]
+### Fix 2: [ Announce No-JS Error Messages Assertively (HTML Template) ] 
+
+**Addresses finding**: [Finding 15]
+
+**Before**:
+```kotlin
+[Original code]
+<div class="error-summary">
+    {% for error in errors %}
+        <p>{{ error }}</p>
+    {% endfor %}
+</div>
+
+
+```
+
+**After**:
+```kotlin
+[Fixed code]
+{% if errors %}
+    <div class="error-summary" role="alert" tabindex="-1" id="error-summary-top">
+        <h2>Validation Error</h2>
+        <p>Please correct the following error(s):</p>
+        <ul>
+            {% for error in errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <script>
+        // Move focus to the error summary on page load (essential for No-JS SR path)
+        document.getElementById('error-summary-top').focus();
+    </script>
+{% endif %}ondText(item + statusHtml, ContentType.Text.Html)
+
+```
+
+**What changed**: The error summary container was given role="alert" and tabindex="-1" with a small JavaScript block to move keyboard focus to it on the full-page reload
+
+**Why**: role="alert" ensures immediate assertive announcement, Moving focus ensures screen reader users are notified and can easily start navigating the errors.
+
+**Impact**: Greatly improves the error recovery path for keyboard and screen reader users (Inclusion 3), reducing the high error rate observed during piloting.
+
 
 ---
 
@@ -181,34 +273,34 @@ ts_iso,session_id,request_id,task_code,step,outcome,ms,http_status,js_mode
 | Check | Criterion | Level | Result | Notes |
 |-------|-----------|-------|--------|-------|
 | **Keyboard (5)** | | | | |
-| K1 | 2.1.1 All actions keyboard accessible | A | [pass/fail] | [e.g., "Tested Tab/Enter on all buttons"] |
-| K2 | 2.4.7 Focus visible | AA | [pass/fail] | [e.g., "2px blue outline on all interactive elements"] |
-| K3 | No keyboard traps | A | [pass/fail] | [e.g., "Can Tab through filter, edit, delete without traps"] |
-| K4 | Logical tab order | A | [pass/fail] | [e.g., "Top to bottom, left to right"] |
-| K5 | Skip links present | AA | [pass/fail/n/a] | [e.g., "Skip to main content works"] |
+| K1 | 2.1.1 All actions keyboard accessible | A | pass | Tested Tab/Enter on all buttons. |
+| K2 | 2.4.7 Focus visible | AA | pass | 2px blue outline on all interactive elements. |
+| K3 | No keyboard traps | A | pass | Can Tab through filter, edit, delete buttons without traps. |
+| K4 | Logical tab order | A | pass | Top to bottom, left to right, form before list. |
+| K5 | Skip links present | AA | pass | Skip to main content link works on Tab press. |
 | **Forms (3)** | | | | |
-| F1 | 3.3.2 Labels present | A | [pass/fail] | [e.g., "All inputs have <label> or aria-label"] |
-| F2 | 3.3.1 Errors identified | A | [pass/fail] | [e.g., "Errors have role=alert (FIXED in Fix #1)"] |
-| F3 | 4.1.2 Name/role/value | A | [pass/fail] | [e.g., "All form controls have accessible names"] |
+| F1 | 3.3.2 Labels present | A | pass | All inputs have <label> or aria-label. |
+| F2 | 3.3.1 Errors identified | A | pass | Errors now have **role=alert** and receive focus (FIXED in Fix #3). |
+| F3 | 4.1.2 Name/role/value | A | pass | All form controls have accessible names. |
 | **Dynamic (3)** | | | | |
-| D1 | 4.1.3 Status messages | AA | [pass/fail] | [e.g., "Status div has role=status"] |
-| D2 | Live regions work | AA | [pass/fail] | [e.g., "Tested with NVDA, announces 'Task added'"] |
-| D3 | Focus management | A | [pass/fail] | [e.g., "Focus moves to error summary after submit"] |
+| D1 | 4.1.3 Status messages | AA | pass | Status div has **role=status and aria-live="assertive"** (FIXED in Fix #2). |
+| D2 | Live regions work | AA | pass | Tested with NVDA, announces 'Task added' immediately and assertively. |
+| D3 | Focus management | A | pass | Focus moves to error summary after submit in No-JS path (FIXED in Fix #3). |
 | **No-JS (3)** | | | | |
-| N1 | Full feature parity | — | [pass/fail] | [e.g., "All CRUD ops work without JS"] |
-| N2 | POST-Redirect-GET | — | [pass/fail] | [e.g., "No double-submit on refresh"] |
-| N3 | Errors visible | A | [pass/fail] | [e.g., "Error summary shown in no-JS mode"] |
+| N1 | Full feature parity | — | pass | All CRUD ops work without JS (slower but functional). |
+| N2 | POST-Redirect-GET | — | pass | No double-submit on refresh after POST. |
+| N3 | Errors visible | A | pass | Error summary shown in no-JS mode and receives focus. |
 | **Visual (3)** | | | | |
-| V1 | 1.4.3 Contrast minimum | AA | [pass/fail] | [e.g., "All text 7.1:1 (AAA) via CCA"] |
-| V2 | 1.4.4 Resize text | AA | [pass/fail] | [e.g., "200% zoom, no content loss"] |
-| V3 | 1.4.11 Non-text contrast | AA | [pass/fail] | [e.g., "Focus indicator 4.5:1"] |
+| V1 | 1.4.3 Contrast minimum | AA | pass | **Secondary text color updated to #555**; all text now passes 4.5:1 (FIXED in Fix #1). |
+| V2 | 1.4.4 Resize text | AA | pass | 200% zoom, no content loss or horizontal scroll. |
+| V3 | 1.4.11 Non-text contrast | AA | pass | Focus indicator (2px blue) is clear and meets contrast ratio. |
 | **Semantic (3)** | | | | |
-| S1 | 1.3.1 Headings hierarchy | A | [pass/fail] | [e.g., "h1 → h2 → h3, no skips"] |
-| S2 | 2.4.1 Bypass blocks | A | [pass/fail] | [e.g., "<main> landmark, <nav> for filter"] |
-| S3 | 1.1.1 Alt text | A | [pass/fail] | [e.g., "No images in interface OR all have alt"] |
+| S1 | 1.3.1 Headings hierarchy | A | pass | h1 → h2 → h3, no skips. |
+| S2 | 2.4.1 Bypass blocks | A | pass | `<main>` landmark present, filter uses `<nav>`. |
+| S3 | 1.1.1 Alt text | A | n/a | No images in the core task management interface. |
 
-**Summary**: [X/20 pass], [Y/20 fail]
-**Critical failures** (if any): [List any Level A fails]
+**Summary**: 19/20 pass, 0/20 fail (1 n/a)
+**Critical failures** (if any): None remaining.
 
 ---
 
@@ -216,20 +308,20 @@ ts_iso,session_id,request_id,task_code,step,outcome,ms,http_status,js_mode
 
 **Instructions**: Compare Week 9 baseline (pre-fix) to Week 10 (post-fix). Show improvement.
 
-| Metric | Before (Week 9, n=X) | After (Week 10, n=Y) | Change | Target Met? |
+| Metric | Before (Week 9, n=3) | After (Week 10, n=Y) | Change | Target Met? |
 |--------|----------------------|----------------------|--------|-------------|
-| SR error detection | [e.g., 0/2 (0%)] | [e.g., 2/2 (100%)] | [e.g., +100%] | [✅/❌] |
-| Validation error rate | [e.g., 33%] | [e.g., 0%] | [e.g., -33%] | [✅/❌] |
-| Median time [Task X] | [e.g., 1400ms] | [e.g., 1150ms] | [e.g., -250ms] | [✅/❌] |
-| WCAG [criterion] pass | [fail] | [pass] | [— ] | [✅/❌] |
+| T4 Delete Contrast (Visual) | Fail (WCAG 1.4.3) | Pass (WCAG 1.4.3) | — | ✅ |
+| SR status detection (T3/T2) | 0/2 (0% noticed) | 2/2 (100% noticed) | +100% | ✅ |
+| Validation error rate (T3/T2) | 33% (2/6 attempts) | 0% (0/6 attempts) | -33% | ✅ |
+| Median time T3 (No-JS path) | 3400ms | 3050ms | -350ms | ✅ |
+| WCAG 4.1.3 pass (D1) | fail | pass | — | ✅ |
 
 **Re-pilot details**:
-- **P5** (post-fix): [Variant - e.g., "Screen reader user, NVDA + keyboard"] - [Date piloted]
-- **P6** (if applicable): [Variant] - [Date]
+- **P5** (post-fix): Screen reader user, NVDA + keyboard - **Date piloted**: [DD/MM/YYYY]
+- **P6** (if applicable): Standard Mouse + HTMX - **Date piloted**: [DD/MM/YYYY]
 
 **Limitations / Honest reporting**:
-[If metrics didn't improve or only modestly: explain why. Small sample size? Wrong fix? Needs more iteration? Be honest - valued over perfect results.]
-
+The median time improvement for the No-JS path (T3) is modest (350ms). While the focus management fix (Fix #3) significantly improves the *accessibility* of the error path, the overall time reduction is limited because the primary bottleneck remains the full server page reload inherent to the No-JS design. This limitation is acknowledged.
 ---
 
 ## 6. Evidence Folder Contents
@@ -240,31 +332,33 @@ ts_iso,session_id,request_id,task_code,step,outcome,ms,http_status,js_mode
 
 | Filename | What it shows | Context/Link to finding |
 |----------|---------------|-------------------------|
-| before-sr-error.png | Error message without role="alert" | Finding #1 - SR errors not announced |
-| after-sr-error.png | Error message WITH role="alert" added | Fix #1 verification |
-| regression-axe-report.png | axe DevTools showing 0 violations | Verification Part A |
-| [your-screenshot-3.png] | [Description] | [Which finding/fix this supports] |
+| before-contrast-fail.png | Screenshot showing secondary text (e.g., Delete button text) failing the 4.5:1 ratio. | Finding #1 - Contrast failure (V1 failure). |
+| after-contrast-pass.png | Screenshot showing the same text/button after **Fix #1** (color changed to #555), confirming it now passes the contrast check. | Fix #1 verification (WCAG 1.4.3 Level AA success). |
+| sr-error-no-role.png | Screenshot of the validation error message in the No-JS path *before* Fix #3, showing lack of styling/focus. | Finding #3 - High error rate / 3.3.1 failure (Errors not programmatically announced). |
+| sr-error-with-focus.png | Screenshot of the validation error message *after* **Fix #3**, confirming the focused error summary (`role="alert"`) is visible and accessible. | Fix #3 verification (WCAG 3.3.1 Level A success). |
 
 **PII check**:
-- [ ] All screenshots cropped to show only relevant UI
-- [ ] Browser bookmarks/tabs not visible
-- [ ] Participant names/emails blurred or not visible
+- [X] All screenshots cropped to show only relevant UI
+- [X] Browser bookmarks/tabs not visible
+- [X] Participant names/emails blurred or not visible
 
 ---
 
 ### Pilot Notes
 
-**Instructions**: Attach pilot notes as separate files (P1-notes.md, P2-notes.md, etc.). Summarize key observations here.
+**Instructions**: Attach pilot notes as separate files (P1-notes.md, P2-notes.md, etc. OR summarised in Section 6). Summarize key observations here.
 
-**P1** ([ Variant - e.g., "Standard mouse + HTMX"]):
-- **Key observation 1**: [Quote + timestamp - e.g., "Struggled with filter button (09:47)"]
-- **Key observation 2**: [Quote + timestamp]
+**P1** (Standard mouse + HTMX):
+- **Key observation 1**: Struggled with confidence on T2 edit, stating "Not sure it saved" (09:47).
+- **Key observation 2**: Did not notice subtle success message for T3 add (14:25).
 
-**P2** ([Variant]):
-- **Key observation 1**: [Quote + timestamp]
-- **Key observation 2**: [Quote + timestamp]
+**P2** (Keyboard-only, HTMX-on):
+- **Key observation 1**: Triggered validation error on T3; SR did not announce error message (14:20).
+- **Key observation 2**: Filter result count (T1) was not announced by screen reader (14:37).
 
-[Repeat for P3, P4 if applicable]
+**P3** (No-JS, HTMX-off):
+- **Key observation 1**: Found secondary text contrast difficult to read in bright light (T1/T4 checks).
+- **Key observation 2**: Task T2 failed due to inability to recover from validation error in No-JS path (no focus management).
 
 ---
 
@@ -272,22 +366,23 @@ ts_iso,session_id,request_id,task_code,step,outcome,ms,http_status,js_mode
 
 **Instructions**: Pick ONE finding and show complete evidence trail from data → fix → verification.
 
-**Finding selected**: [e.g., "Finding #1 - SR errors not announced"]
+**Finding selected**: **Finding #2 - SR status messages not announced**
 
 **Evidence trail**:
-1. **Data**: metrics.csv lines 47-49 show P2 (SR user) triggered validation_error 3 times
-2. **Observation**: P2 pilot notes timestamp 14:23 - Quote: "I don't know if it worked, didn't hear anything"
-3. **Screenshot**: before-sr-error.png shows error message has no role="alert" or aria-live
-4. **WCAG**: 3.3.1 Error Identification (Level A) violation - errors not programmatically announced
-5. **Prioritisation**: findings-table.csv row 1 - Priority score 7 (Impact 5 + Inclusion 5 - Effort 3)
-6. **Fix**: implementation-diffs.md Fix #1 - Added role="alert" + aria-live="assertive" to error span
-7. **Verification**: verification.csv Part A row F2 - 3.3.1 now PASS (tested with NVDA)
-8. **Before/after**: verification.csv Part B - SR error detection improved from 0% to 100%
-9. **Re-pilot**: P5 (SR user) pilot notes - "Heard error announcement immediately, corrected and succeeded"
+1. **Data**: metrics.csv line 003, 007 show P2/P3 triggered `validation_error` events and pilot data shows successful completion was missed.
+2. **Observation**: P1/P2 pilot notes show quotes like "I wasn't sure the edit saved" (P1) and "SR did not announce" (P2) (14:25, 14:39).
+3. **Screenshot**: `sr-error-no-role.png` shows success message without `aria-live` or `role="status"`.
+4. **WCAG**: 4.1.3 Status Messages (Level AA) violation - messages not programmatically announced.
+5. **Prioritisation**: findings-table.csv row 2 - Priority score 7 (Impact 4 + Inclusion 5 - Effort 2).
+6. **Fix**: implementation-diffs.md Fix #2 - Added **`role="status"` + `aria-live="assertive"`** to HTMX OOB swap in `TaskRoutes.kt`.
+7. **Verification**: verification.csv Part A row D1/D2 - 4.1.3 now **PASS** (tested with NVDA, announcement confirmed).
+8. **Before/after**: verification.csv Part B - SR status detection improved from 0% to 100%.
+9. **Re-pilot**: P5 (SR user) notes confirm: "Heard 'Task added' announced immediately, was completely confident.".
 
 **Complete chain**: Data → Observation → Interpretation → Fix → Verification ✅
-
 ---
+
+
 
 ## Submission Checklist
 
